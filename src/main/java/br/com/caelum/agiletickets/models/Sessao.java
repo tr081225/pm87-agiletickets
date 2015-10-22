@@ -33,6 +33,22 @@ public class Sessao {
 	private Integer ingressosReservados = 0;
 
 	private BigDecimal preco;
+	
+	public Sessao () {
+		
+	}
+	
+	public Sessao ( Espetaculo espetaculo )
+	{
+		setEspetaculo(espetaculo);
+	}
+	
+	public Sessao ( Espetaculo espetaculo, DateTime inicio )
+	{
+		setEspetaculo(espetaculo);
+		setInicio(inicio);
+		
+	}
 
 	public Long getId() {
 		return id;

@@ -3,6 +3,11 @@ package br.com.caelum.agiletickets.models;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Test;
 
 public class EspetaculoTest {
@@ -81,4 +86,88 @@ public class EspetaculoTest {
 		return sessao;
 	}
 	
+	
+	@Test
+	public void deveCriarUmaUnicaSessaoQuandoForOMesmoDia () {
+		Espetaculo depecheMode  = new Espetaculo ();
+		LocalDate inicio = new LocalDate ( 2015, 10, 20 );
+		LocalDate fim = new LocalDate ( 2015, 10, 20 );
+		LocalTime horario = new LocalTime ( 21, 00 );
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		
+		
+		
+		List<Sessao> sessoes = depecheMode.criaSessoes(inicio, fim, horario, periodicidade );
+		
+		assertTrue( sessoes != null );
+		assertTrue( sessoes.isEmpty() == false );
+		
+		Integer days = ( Days.daysBetween(inicio, fim).getDays() );
+		days /= periodicidade.equals(Periodicidade.DIARIA) ? 1 : 7;
+		days ++;
+		assertTrue ( days.equals(sessoes.size()));
+	}
+
+	@Test
+	public void deveCriarUmaUnicaSessaoSemanalMesmoDia () {
+		Espetaculo depecheMode  = new Espetaculo ();
+		LocalDate inicio = new LocalDate ( 2015, 10, 20 );
+		LocalDate fim = new LocalDate ( 2015, 10, 20 );
+		LocalTime horario = new LocalTime ( 21, 00 );
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		
+		
+		
+		List<Sessao> sessoes = depecheMode.criaSessoes(inicio, fim, horario, periodicidade );
+		
+		assertTrue( sessoes != null );
+		assertTrue( sessoes.isEmpty() == false );
+		
+		Integer days = ( Days.daysBetween(inicio, fim).getDays() );
+		days /= periodicidade.equals(Periodicidade.DIARIA) ? 1 : 7;
+		days ++;
+		assertTrue ( days.equals(sessoes.size()));
+	}
+	
+	@Test
+	public void deveCriarUmaUnicaSessaoDiariaParaOMes () {
+		Espetaculo depecheMode  = new Espetaculo ();
+		LocalDate inicio = new LocalDate ( 2015, 10, 20 );
+		LocalDate fim = new LocalDate ( 2015, 11, 20 );
+		LocalTime horario = new LocalTime ( 21, 00 );
+		Periodicidade periodicidade = Periodicidade.DIARIA;
+		
+		
+		
+		List<Sessao> sessoes = depecheMode.criaSessoes(inicio, fim, horario, periodicidade );
+		
+		assertTrue( sessoes != null );
+		assertTrue( sessoes.isEmpty() == false );
+		
+		Integer days = ( Days.daysBetween(inicio, fim).getDays() );
+		days /= periodicidade.equals(Periodicidade.DIARIA) ? 1 : 7;
+		days ++;
+		assertTrue ( days.equals(sessoes.size()));
+	}
+
+	@Test
+	public void deveCriarUmaUnicaSessaoSeemanalParaOMes () {
+		Espetaculo depecheMode  = new Espetaculo ();
+		LocalDate inicio = new LocalDate ( 2015, 10, 20 );
+		LocalDate fim = new LocalDate ( 2015, 11, 20 );
+		LocalTime horario = new LocalTime ( 21, 00 );
+		Periodicidade periodicidade = Periodicidade.SEMANAL;
+		
+		
+		
+		List<Sessao> sessoes = depecheMode.criaSessoes(inicio, fim, horario, periodicidade );
+		
+		assertTrue( sessoes != null );
+		assertTrue( sessoes.isEmpty() == false );
+		
+		Integer days = ( Days.daysBetween(inicio, fim).getDays() );
+		days /= periodicidade.equals(Periodicidade.DIARIA) ? 1 : 7;
+		days ++;
+		assertTrue ( days.equals(sessoes.size()));
+	}
 }
